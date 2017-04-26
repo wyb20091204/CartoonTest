@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2o-x4-0kI">
                         <rect key="frame" x="0.0" y="0.0" width="287" height="378.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-9F-OO1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iv_not_loading_image" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-9F-OO1">
                                 <rect key="frame" x="0.0" y="0.0" width="287" height="368.5"/>
                                 <color key="backgroundColor" red="0.80337520299999998" green="0.74355596049999995" blue="0.34442177210000002" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
@@ -48,4 +48,7 @@
             <point key="canvasLocation" x="8.5" y="221.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="iv_not_loading_image" width="360" height="200"/>
+    </resources>
 </document>

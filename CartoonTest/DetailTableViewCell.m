@@ -7,6 +7,11 @@
 //
 
 #import "DetailTableViewCell.h"
+#import <SDWebImageManager.h>
+
+@interface DetailTableViewCell ()
+@property (nonatomic) CGFloat cellHeight;
+@end
 
 @implementation DetailTableViewCell
 
@@ -14,6 +19,7 @@
     [super awakeFromNib];
     // Initialization code
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

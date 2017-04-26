@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A181C4E1EB0F502004799B2 /* ImgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A181C4D1EB0F502004799B2 /* ImgModel.m */; };
 		1A1C54031EB08BD900026B70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C54021EB08BD900026B70 /* main.m */; };
 		1A1C54061EB08BD900026B70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C54051EB08BD900026B70 /* AppDelegate.m */; };
 		1A1C54091EB08BD900026B70 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C54081EB08BD900026B70 /* ViewController.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A181C4C1EB0F502004799B2 /* ImgModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImgModel.h; sourceTree = "<group>"; };
+		1A181C4D1EB0F502004799B2 /* ImgModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImgModel.m; sourceTree = "<group>"; };
 		1A1C53FE1EB08BD900026B70 /* CartoonTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CartoonTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1C54021EB08BD900026B70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1A1C54041EB08BD900026B70 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				1A1C541E1EB0905B00026B70 /* DetailTableViewCell.h */,
 				1A1C541F1EB0905B00026B70 /* DetailTableViewCell.m */,
 				1A1C54201EB0905B00026B70 /* DetailTableViewCell.xib */,
+				1A181C4C1EB0F502004799B2 /* ImgModel.h */,
+				1A181C4D1EB0F502004799B2 /* ImgModel.m */,
 				1A1C540A1EB08BD900026B70 /* Main.storyboard */,
 				1A1C540D1EB08BD900026B70 /* Assets.xcassets */,
 				1A1C540F1EB08BD900026B70 /* LaunchScreen.storyboard */,
@@ -253,6 +258,7 @@
 				1A1C54251EB0917400026B70 /* EDCLoadinGif.m in Sources */,
 				1A1C54211EB0905B00026B70 /* DetailTableViewCell.m in Sources */,
 				1A1C541A1EB08D6600026B70 /* DetailTableViewController.m in Sources */,
+				1A181C4E1EB0F502004799B2 /* ImgModel.m in Sources */,
 				1A1C54281EB0983E00026B70 /* DayNetwork.m in Sources */,
 				1A1C54091EB08BD900026B70 /* ViewController.m in Sources */,
 				1A1C54061EB08BD900026B70 /* AppDelegate.m in Sources */,

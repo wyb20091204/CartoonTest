@@ -11,9 +11,10 @@
 #import "EDCLoadinGif.h"
 #import "DayNetwork.h"
 #import <UIImageView+WebCache.h>
+#import "ImgModel.h"
 
 @interface DetailTableViewController ()
-@property (nonatomic) NSMutableArray<NSString *> *images;
+@property (nonatomic) NSMutableArray<ImgModel *> *images;
 @end
 
 @implementation DetailTableViewController
@@ -46,10 +47,25 @@
                            NSLog(@"\n%@",data);
                            self.images = nil;
                            self.images = @[].mutableCopy;
+                           NSMutableArray *urls = @[].mutableCopy;
                            for (NSString *imgUrl in data) {
-                               [self.images addObject:imgUrl];
+                               [urls addObject:imgUrl];
                            }
-                           [self.tableView reloadData];
+                           for (int i = 0; i < urls.count ; i ++) {
+                               SDWebImageManager *manager = [SDWebImageManager sharedManager];
+                               [manager downloadImageWithURL:[NSURL URLWithString:urls[i]] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                   if (image) {
+                                       CGFloat imgHeght = image.size.height;
+                                       CGFloat imgWidth = image.size.width;
+                                       CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
+                                       ImgModel *model = [ImgModel new];
+                                       model.img = image;
+                                       model.cellHeight = cellHeight;
+                                       [self.images addObject:model];
+                                       [self.tableView reloadData];
+                                   }
+                               }];
+                           }
                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                            [EDCLoadinGif dismiss];
                        }];
@@ -81,14 +97,16 @@
     DetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DetailTableViewCell class]) forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSString *url = self.images[indexPath.row];
-    [cell.imgeView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"iv_not_loading_image"]];
+    cell.imgeView.image = self.images[indexPath.row].img;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 1000;
+    
+    
+    
+        return self.images[indexPath.row].cellHeight;
 }
 
 

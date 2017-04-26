@@ -60,14 +60,6 @@
                                     <segue destination="SQY-qU-xWj" kind="show" identifier="secend" id="lsG-vG-WHt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyL-bf-Sn6">
-                                <rect key="frame" x="99" y="394" width="46" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="第三话"/>
-                                <connections>
-                                    <segue destination="SQY-qU-xWj" kind="show" identifier="third" id="qGC-TP-NXd"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -108,6 +100,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qGC-TP-NXd"/>
+        <segue reference="lsG-vG-WHt"/>
     </inferredMetricsTieBreakers>
 </document>

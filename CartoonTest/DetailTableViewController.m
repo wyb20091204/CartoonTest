@@ -23,7 +23,7 @@
     
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DetailTableViewCell class]) bundle:[NSBundle mainBundle]] forCellReuseIdentifier:NSStringFromClass([DetailTableViewCell class])];
-    
+    self.title = [NSString stringWithFormat:@"第%d话",self.chapter];
     [self loadData];
     
 }

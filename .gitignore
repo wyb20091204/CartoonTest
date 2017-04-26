@@ -1,0 +1,41 @@
+# Mac
+.DS_Store
+# Xcode
+#
+build/
+*.xcworkspace
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+# CocoaPods
+Pods/
+nie*.ipa
+build.*
+# vim
+*.swp
+#python
+*.pyc
+
+#fastlane
+**/fastlane/report.xml
+**/fastlane/README.md
+*.app.dSYM.zip
+
+#xcode injection plugin
+iOSInjectionProject
+
+#for command line export
+exportOptions.plist
+

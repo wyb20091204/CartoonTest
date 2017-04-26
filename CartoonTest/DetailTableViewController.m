@@ -82,13 +82,13 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSString *url = self.images[indexPath.row];
-    [cell.imgeView sd_setImageWithURL:[NSURL URLWithString:url]];
+    [cell.imgeView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"iv_not_loading_image"]];
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 2200;
+    return 1000;
 }
 
 

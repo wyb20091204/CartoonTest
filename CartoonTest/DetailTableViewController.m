@@ -21,9 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DetailTableViewCell class]) bundle:[NSBundle mainBundle]] forCellReuseIdentifier:NSStringFromClass([DetailTableViewCell class])];
     self.title = [NSString stringWithFormat:@"第%d话",self.chapter];
+    self.tableView.tableFooterView = [UIView new];
     [self loadData];
     
 }

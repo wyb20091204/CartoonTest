@@ -8,8 +8,11 @@
 
 #import "ViewController.h"
 #import "DetailTableViewController.h"
+#import <SDWebImageManager.h>
+#import <SDImageCache.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *cacheLabel;
 
 @end
 
@@ -18,7 +21,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
+    float tmpSize = [SDImageCache sharedImageCache].getSize/1024/1024;
+    
+    NSLog(@"%f",tmpSize);
+    
+    self.cacheLabel.text = tmpSize >= 1 ? [NSString stringWithFormat:@"%.1fM",tmpSize] : [NSString stringWithFormat:@"%.1fK",tmpSize * 1024];
 }
 
 
@@ -26,6 +38,25 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)clearCache:(id)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"清除缓存？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];
+        float tmpSize = [SDImageCache sharedImageCache].getSize/1024/1024;
+        NSLog(@"%f",tmpSize);
+        self.cacheLabel.text = tmpSize >= 1 ? [NSString stringWithFormat:@"%.1fM",tmpSize] : [NSString stringWithFormat:@"%.1fK",tmpSize * 1024];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:confirmAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+}
+
+
 
 
  #pragma mark - Navigation

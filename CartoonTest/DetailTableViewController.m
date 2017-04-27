@@ -41,8 +41,6 @@
     [[DayNetwork network] POST:URLString
                     parameters:param
                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                           [EDCLoadinGif dismiss];
-                           
                            NSArray *data = responseObject[@"result"][@"data"];
                            NSLog(@"\n%@",data);
                            self.images = nil;
@@ -51,6 +49,8 @@
                            for (NSString *imgUrl in data) {
                                [urls addObject:imgUrl];
                            }
+                           [EDCLoadinGif dismiss];
+
                            for (int i = 0; i < urls.count ; i ++) {
                                SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                [manager downloadImageWithURL:[NSURL URLWithString:urls[i]] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -69,9 +69,6 @@
                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                            [EDCLoadinGif dismiss];
                        }];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

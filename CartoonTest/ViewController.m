@@ -26,11 +26,14 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    float tmpSize = [SDImageCache sharedImageCache].getSize/1024/1024;
-    
+    [self setCacheSize];
+}
+
+- (void)setCacheSize{
+    CGFloat tmpSize = [SDImageCache sharedImageCache].getSize;
     NSLog(@"%f",tmpSize);
-    
-    self.cacheLabel.text = tmpSize >= 1 ? [NSString stringWithFormat:@"%.1fM",tmpSize] : [NSString stringWithFormat:@"%.1fK",tmpSize * 1024];
+    CGFloat MSize = tmpSize/1024/1024;
+    self.cacheLabel.text = MSize >= 1 ? [NSString stringWithFormat:@"%.2fM",MSize] : [NSString stringWithFormat:@"%.2fK",tmpSize / 1024];
 }
 
 
@@ -44,19 +47,35 @@
     UIAlertAction *confirmAction  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[SDImageCache sharedImageCache] clearDisk];
         [[SDImageCache sharedImageCache] clearMemory];
-        float tmpSize = [SDImageCache sharedImageCache].getSize/1024/1024;
-        NSLog(@"%f",tmpSize);
-        self.cacheLabel.text = tmpSize >= 1 ? [NSString stringWithFormat:@"%.1fM",tmpSize] : [NSString stringWithFormat:@"%.1fK",tmpSize * 1024];
+        [self setCacheSize];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:confirmAction];
     [alert addAction:cancelAction];
+    [alert addAction:confirmAction];
     [self presentViewController:alert animated:YES completion:nil];
     
     
 }
 
 
+- (IBAction)swichAction:(id)sender {
+    
+    UISwitch *ssswitch = (UISwitch *)sender;
+    NSString *message;
+    NSString *title;
+    if (ssswitch.isOn) {
+        message = @"";
+        title = @"打开省流量模式";
+    }else {
+        title = @"关闭省流量模式";
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"省流量加载区别在按钮中直接体现，demo中这里只是显示有这个按钮" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction  = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:confirmAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+}
 
 
  #pragma mark - Navigation
@@ -67,8 +86,14 @@
      if ([segue.identifier isEqualToString:@"first"]) {
          chapter = 1;
      }
-     else if ([segue.identifier isEqualToString:@"secend"]) {
+     else if ([segue.identifier isEqualToString:@"second"]) {
          chapter = 2;
+     }
+     else if ([segue.identifier isEqualToString:@"firstSmall"]){
+         chapter = 3;
+     }
+     else if ([segue.identifier isEqualToString:@"secondSmall"]){
+         chapter = 4;
      }
      else {
          return;

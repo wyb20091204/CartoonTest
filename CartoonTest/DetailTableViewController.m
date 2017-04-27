@@ -23,7 +23,23 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DetailTableViewCell class]) bundle:[NSBundle mainBundle]] forCellReuseIdentifier:NSStringFromClass([DetailTableViewCell class])];
-    self.title = [NSString stringWithFormat:@"第%d话",self.chapter];
+    switch (self.chapter) {
+        case 1:
+            self.title = @"第1话(原画)";
+            break;
+        case 2:
+            self.title = @"第2话(原画)";
+            break;
+        case 3:
+            self.title = @"第1话";
+            break;
+        case 4:
+            self.title = @"第2话";
+            break;
+        default:
+            self.title = @"假标题";
+            break;
+    }
     self.tableView.tableFooterView = [UIView new];
     [self loadData];
     
@@ -36,7 +52,15 @@
     [EDCLoadinGif showWithMaskType:EDCLodingMaskTypeBlack];
     
     NSString *URLString = [NSString stringWithFormat:@"%@/imgs/carton",kISBaseURL];
-    NSDictionary *param = @{@"chapter":@(self.chapter)};
+    
+    int cha;
+    if (self.chapter %2 ==1) {
+        cha = 1;
+    }else {
+        cha = 2;
+    }
+    
+    NSDictionary *param = @{@"chapter":@(cha)};
     
     [[DayNetwork network] POST:URLString
                     parameters:param
@@ -47,10 +71,16 @@
                            self.images = @[].mutableCopy;
                            NSMutableArray *urls = @[].mutableCopy;
                            for (NSString *imgUrl in data) {
-                               [urls addObject:imgUrl];
+                               NSString *sstr = [NSString stringWithFormat:@"%@?imageView2/2/w/%.0f",imgUrl,SCREEN_WIDTH];
+                               
+                               if (self.chapter == 1 ||
+                                   self.chapter == 2) {
+                                   [urls addObject:imgUrl]; // 原话
+                               } else{
+                                   [urls addObject:sstr]; // 缩略图
+                               }
                            }
                            [EDCLoadinGif dismiss];
-
                            for (int i = 0; i < urls.count ; i ++) {
                                SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                [manager downloadImageWithURL:[NSURL URLWithString:urls[i]] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -100,8 +130,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     
         return self.images[indexPath.row].cellHeight;
 }

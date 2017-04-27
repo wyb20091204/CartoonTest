@@ -62,44 +62,77 @@
     
     NSDictionary *param = @{@"chapter":@(cha)};
     
-    [[DayNetwork network] POST:URLString
-                    parameters:param
-                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                           NSArray *data = responseObject[@"result"][@"data"];
-                           NSLog(@"\n%@",data);
-                           self.images = nil;
-                           self.images = @[].mutableCopy;
-                           NSMutableArray *urls = @[].mutableCopy;
-                           for (NSString *imgUrl in data) {
-                               NSString *sstr = [NSString stringWithFormat:@"%@?imageView2/2/w/%.0f",imgUrl,SCREEN_WIDTH * 1.2];
-                               
-                               if (self.chapter == 1 ||
-                                   self.chapter == 2) {
-                                   [urls addObject:imgUrl]; // 原话
-                               } else{
-                                   [urls addObject:sstr]; // 缩略图
-                               }
-                           }
-                           [EDCLoadinGif dismiss];
-                           for (int i = 0; i < urls.count ; i ++) {
-                               SDWebImageManager *manager = [SDWebImageManager sharedManager];
-                               [manager downloadImageWithURL:[NSURL URLWithString:urls[i]] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                   if (image) {
-                                       CGFloat imgHeght = image.size.height;
-                                       CGFloat imgWidth = image.size.width;
-                                       CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
-                                       ImgModel *model = [ImgModel new];
-                                       model.img = image;
-                                       model.cellHeight = cellHeight;
-                                       [self.images addObject:model];
-                                       [self.tableView reloadData];
-                                   }
-                               }];
-                           }
-                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                           [EDCLoadinGif dismiss];
-                       }];
+    [[DayNetwork network] POST:URLString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *data = responseObject[@"result"][@"data"];
+        NSLog(@"\n%@",data);
+        self.images = nil;
+        self.images = @[].mutableCopy;
+        NSMutableArray *urls = @[].mutableCopy;
+        for (NSString *imgUrl in data) {
+            NSString *sstr = [NSString stringWithFormat:@"%@?imageView2/2/w/%.0f",imgUrl,SCREEN_WIDTH * 1.2];
+            if (self.chapter == 1 ||
+                self.chapter == 2) {
+                [urls addObject:imgUrl]; // 原话
+            } else{
+                [urls addObject:sstr]; // 缩略图
+            }
+        }
+        [self loadImgWithUrls:urls success:^(int imageSuccessCount) {
+            if (imageSuccessCount == urls.count) {
+                [self.tableView reloadData];
+                [EDCLoadinGif dismiss];
+            }
+            else{
+                [EDCLoadinGif dismiss];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"图片下载出错，请尝试重新进入" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *confirmAction  = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                [alert addAction:confirmAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [EDCLoadinGif dismiss];
+    }];
 }
+
+
+
+
+- (void)loadImgWithUrls:(NSArray *)urls success:(void(^)(int imageSuccessCount))success{
+    __block int imageSuccessCount = 0;
+    void (^getRoomImageBlock)(dispatch_group_t dispathGroup) = ^(dispatch_group_t dispachGroup){
+        for (int i = 0; i < urls.count ; i ++) {
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadImageWithURL:[NSURL URLWithString:urls[i]] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                if (image) {
+                    CGFloat imgHeght = image.size.height;
+                    CGFloat imgWidth = image.size.width;
+                    CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
+                    ImgModel *model = [ImgModel new];
+                    model.img = image;
+                    model.cellHeight = cellHeight;
+                    [self.images addObject:model];
+                    imageSuccessCount += 1;
+                    if (imageSuccessCount == urls.count) {
+                        dispatch_group_leave(dispachGroup);
+                    }
+                } else{
+                    dispatch_group_leave(dispachGroup);
+                }
+            }];
+        }
+    };
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        getRoomImageBlock(group);
+    });
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        success(imageSuccessCount);
+    });
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

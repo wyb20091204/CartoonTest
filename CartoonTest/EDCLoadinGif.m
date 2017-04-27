@@ -60,6 +60,8 @@
     return _lodingImgView;
 }
 
+
+
 + (void)show{
     [[self sharedView] showWithMaskType:EDCLodingMaskTypeNone];
 }
@@ -67,7 +69,11 @@
 + (void)showWithMaskType:(EDCLodingMaskType)type{
     [[self sharedView] showWithMaskType:type];
 }
-
++ (void)showErrorWithStatus:(NSString *)status{
+    
+    
+    
+}
 
 - (void)showWithMaskType:(EDCLodingMaskType)type{
     UIColor *backgroundColor;

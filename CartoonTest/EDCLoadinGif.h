@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, EDCLodingMaskType) {
 @interface EDCLoadinGif : UIView
 + (void)show;
 + (void)showWithMaskType:(EDCLodingMaskType)type;
++ (void)showErrorWithStatus:(NSString *)status;
 /**
   * 暂未实现
   */

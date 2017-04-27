@@ -54,27 +54,6 @@
     [alert addAction:confirmAction];
     [self presentViewController:alert animated:YES completion:nil];
     
-    
-}
-
-
-- (IBAction)swichAction:(id)sender {
-    
-    UISwitch *ssswitch = (UISwitch *)sender;
-    NSString *message;
-    NSString *title;
-    if (ssswitch.isOn) {
-        message = @"";
-        title = @"打开省流量模式";
-    }else {
-        title = @"关闭省流量模式";
-    }
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"省流量加载区别在按钮中直接体现，demo中这里只是显示有这个按钮" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirmAction  = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:confirmAction];
-    [self presentViewController:alert animated:YES completion:nil];
-    
-    
 }
 
 

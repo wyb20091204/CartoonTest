@@ -71,7 +71,7 @@
                            self.images = @[].mutableCopy;
                            NSMutableArray *urls = @[].mutableCopy;
                            for (NSString *imgUrl in data) {
-                               NSString *sstr = [NSString stringWithFormat:@"%@?imageView2/2/w/%.0f",imgUrl,SCREEN_WIDTH];
+                               NSString *sstr = [NSString stringWithFormat:@"%@?imageView2/2/w/%.0f",imgUrl,SCREEN_WIDTH * 1.2];
                                
                                if (self.chapter == 1 ||
                                    self.chapter == 2) {

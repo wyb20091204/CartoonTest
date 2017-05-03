@@ -12,6 +12,7 @@
 #import "DayNetwork.h"
 #import <UIImageView+WebCache.h>
 #import "ImgModel.h"
+#import <SDImageCache.h>
 
 @interface DetailTableViewController ()
 @property (nonatomic) NSMutableArray<ImgModel *> *images;
@@ -77,6 +78,7 @@
                 [urls addObject:sstr]; // 缩略图
             }
         }
+        [[NSUserDefaults standardUserDefaults] setObject:urls forKey:[NSString stringWithFormat:@"%d",self.chapter]];
         [self loadImgWithUrls:urls success:^(int imageSuccessCount) {
             if (imageSuccessCount == urls.count) {
                 [self.tableView reloadData];
@@ -90,13 +92,27 @@
                 [self presentViewController:alert animated:YES completion:nil];
             }
         }];
+       
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSArray *urls = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d",self.chapter]];
+        self.images = nil;
+        self.images = @[].mutableCopy;
+        if (urls) {
+            for (NSString *str in urls) {
+                UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:str];
+                CGFloat imgHeght = image.size.height;
+                CGFloat imgWidth = image.size.width;
+                CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
+                ImgModel *model = [ImgModel new];
+                model.img = image;
+                model.cellHeight = cellHeight;
+                [self.images addObject:model];
+            }
+            [self.tableView reloadData];
+        }
         [EDCLoadinGif dismiss];
     }];
 }
-
-
-
 
 - (void)loadImgWithUrls:(NSArray *)urls success:(void(^)(int imageSuccessCount))success{
     __block int imageSuccessCount = 0;

@@ -21,6 +21,12 @@
 
 @implementation DetailTableViewController
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [[FailureDataImgView shareFailureImgView] dismiss];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -50,7 +56,6 @@
 
 - (void)loadData
 {
-    
     [EDCLoadinGif showWithMaskType:EDCLodingMaskTypeBlack];
     
     NSString *URLString = [NSString stringWithFormat:@"%@/imgs/carton",kISBaseURL];

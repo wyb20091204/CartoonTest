@@ -31,7 +31,7 @@
 {
     self = [super init];
     if (self) {
-        self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
         [self setSubviews];
     }
     return self;

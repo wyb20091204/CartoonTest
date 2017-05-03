@@ -13,6 +13,7 @@
 #import <UIImageView+WebCache.h>
 #import "ImgModel.h"
 #import <SDImageCache.h>
+#import "FailureDataImgView.h"
 
 @interface DetailTableViewController ()
 @property (nonatomic) NSMutableArray<ImgModel *> *images;
@@ -65,6 +66,11 @@
     
     [[DayNetwork network] POST:URLString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = responseObject[@"result"][@"data"];
+        if (data.count != 0) {
+            [EDCLoadinGif dismiss];
+            [[FailureDataImgView shareFailureImgView] show];
+            return ;
+        }
         NSLog(@"\n%@",data);
         self.images = nil;
         self.images = @[].mutableCopy;
@@ -100,15 +106,19 @@
         if (urls) {
             for (NSString *str in urls) {
                 UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:str];
-                CGFloat imgHeght = image.size.height;
-                CGFloat imgWidth = image.size.width;
-                CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
-                ImgModel *model = [ImgModel new];
-                model.img = image;
-                model.cellHeight = cellHeight;
-                [self.images addObject:model];
+                if (image) {
+                    CGFloat imgHeght = image.size.height;
+                    CGFloat imgWidth = image.size.width;
+                    CGFloat cellHeight = SCREEN_WIDTH * imgHeght / imgWidth + 10;
+                    ImgModel *model = [ImgModel new];
+                    model.img = image;
+                    model.cellHeight = cellHeight;
+                    [self.images addObject:model];
+                }
             }
             [self.tableView reloadData];
+        }else{
+            [[FailureDataImgView shareFailureImgView] show];
         }
         [EDCLoadinGif dismiss];
     }];

@@ -19,6 +19,7 @@
 		1A1C54221EB0905B00026B70 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1C54201EB0905B00026B70 /* DetailTableViewCell.xib */; };
 		1A1C54251EB0917400026B70 /* EDCLoadinGif.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C54241EB0917400026B70 /* EDCLoadinGif.m */; };
 		1A1C54281EB0983E00026B70 /* DayNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C54261EB0983E00026B70 /* DayNetwork.m */; };
+		1A73E6FD1EB98C840066AB55 /* FailureDataImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A73E6FC1EB98C840066AB55 /* FailureDataImgView.m */; };
 		F4F94AAA16C27103729B2285 /* libPods-CartoonTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C4B5B809BA57A0655F8A3D /* libPods-CartoonTest.a */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		1A1C54241EB0917400026B70 /* EDCLoadinGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCLoadinGif.m; sourceTree = "<group>"; };
 		1A1C54261EB0983E00026B70 /* DayNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayNetwork.m; sourceTree = "<group>"; };
 		1A1C54271EB0983E00026B70 /* DayNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayNetwork.h; sourceTree = "<group>"; };
+		1A73E6FB1EB98C840066AB55 /* FailureDataImgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailureDataImgView.h; sourceTree = "<group>"; };
+		1A73E6FC1EB98C840066AB55 /* FailureDataImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailureDataImgView.m; sourceTree = "<group>"; };
 		72C4B5B809BA57A0655F8A3D /* libPods-CartoonTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CartoonTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76328BC51DBCB889875E86DC /* Pods-CartoonTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CartoonTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CartoonTest/Pods-CartoonTest.release.xcconfig"; sourceTree = "<group>"; };
 		D980F1AB5B442A1AFF64F4E2 /* Pods-CartoonTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CartoonTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CartoonTest/Pods-CartoonTest.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 			children = (
 				1A1C54231EB0917400026B70 /* EDCLoadinGif.h */,
 				1A1C54241EB0917400026B70 /* EDCLoadinGif.m */,
+				1A73E6FB1EB98C840066AB55 /* FailureDataImgView.h */,
+				1A73E6FC1EB98C840066AB55 /* FailureDataImgView.m */,
 				1A1C54261EB0983E00026B70 /* DayNetwork.m */,
 				1A1C54271EB0983E00026B70 /* DayNetwork.h */,
 				1A1C54041EB08BD900026B70 /* AppDelegate.h */,
@@ -259,6 +264,7 @@
 				1A1C54211EB0905B00026B70 /* DetailTableViewCell.m in Sources */,
 				1A1C541A1EB08D6600026B70 /* DetailTableViewController.m in Sources */,
 				1A181C4E1EB0F502004799B2 /* ImgModel.m in Sources */,
+				1A73E6FD1EB98C840066AB55 /* FailureDataImgView.m in Sources */,
 				1A1C54281EB0983E00026B70 /* DayNetwork.m in Sources */,
 				1A1C54091EB08BD900026B70 /* ViewController.m in Sources */,
 				1A1C54061EB08BD900026B70 /* AppDelegate.m in Sources */,

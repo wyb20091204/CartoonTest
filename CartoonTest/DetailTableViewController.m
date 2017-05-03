@@ -66,7 +66,7 @@
     
     [[DayNetwork network] POST:URLString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = responseObject[@"result"][@"data"];
-        if (data.count != 0) {
+        if (data.count == 0) {
             [EDCLoadinGif dismiss];
             [[FailureDataImgView shareFailureImgView] show];
             return ;

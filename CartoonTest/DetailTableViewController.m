@@ -13,22 +13,33 @@
 #import <UIImageView+WebCache.h>
 #import "ImgModel.h"
 #import <SDImageCache.h>
-#import "FailureDataImgView.h"
+#import "UIImageView+FailureImgView.h"
+#import <Masonry.h>
+
+
 
 @interface DetailTableViewController ()
 @property (nonatomic) NSMutableArray<ImgModel *> *images;
+
+
+@property (nonatomic) UIImageView *failureImgView;
 @end
 
 @implementation DetailTableViewController
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [[FailureDataImgView shareFailureImgView] dismiss];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.failureImgView = [[UIImageView alloc] init];
+    [self.view addSubview:self.failureImgView];
+    __weak typeof(self)weakSelf  = self;
+    [self.failureImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(weakSelf.view);
+    }];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DetailTableViewCell class]) bundle:[NSBundle mainBundle]] forCellReuseIdentifier:NSStringFromClass([DetailTableViewCell class])];
     switch (self.chapter) {
@@ -73,7 +84,7 @@
         NSArray *data = responseObject[@"result"][@"data"];
         if (data.count == 0) {
             [EDCLoadinGif dismiss];
-            [[FailureDataImgView shareFailureImgView] show];
+            [self.failureImgView show];
             return ;
         }
         NSLog(@"\n%@",data);
@@ -123,7 +134,7 @@
             }
             [self.tableView reloadData];
         }else{
-            [[FailureDataImgView shareFailureImgView] show];
+            [self.failureImgView show];
         }
         [EDCLoadinGif dismiss];
     }];
